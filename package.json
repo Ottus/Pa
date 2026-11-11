@@ -1,0 +1,28 @@
+{
+  "name": "parcelo-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Parcelo Next-Gen Logistics Suite - Monorepo (Customer App, Ops Dashboard, Shared Library, Cloud Functions)",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "firebase/functions"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n \"CUSTOMER,OPS\" -c \"teal.bold,blue.bold\" \"npm run dev:customer\" \"npm run dev:ops\"",
+    "dev:customer": "npm run dev --workspace=@parcelo/customer",
+    "dev:ops": "npm run dev --workspace=@parcelo/ops",
+    "build": "npm run build --workspace=@parcelo/customer && npm run build --workspace=@parcelo/ops",
+    "build:customer": "npm run build --workspace=@parcelo/customer",
+    "build:ops": "npm run build --workspace=@parcelo/ops",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "emulators": "firebase emulators:start --only firestore,storage,functions,auth",
+    "bootstrap:admin": "node scripts/bootstrap-admin.js",
+    "seed:demo": "node scripts/seed-demo-data.js"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "vitest": "^1.6.0"
+  }
+}

@@ -1,0 +1,49 @@
+/**
+ * @notice Parcelo Design System Tokens
+ * @dev Dark dashboard theme variables. All measurements adhere to 4px scale.
+ */
+:root {
+  /* Surface & Background */
+  --bg-primary: #0F172A;
+  --surface-primary: #1E293B;
+  --surface-elevated: #243047;
+  --border-default: #334155;
+  --border-hover: #475569;
+
+  /* Text & Content */
+  --text-primary: #F1F5F9;
+  --text-muted: #94A3B8;
+  --text-subtle: #64748B;
+
+  /* Accent & Interactive (Electric Teal) */
+  --accent-teal: #14B8A6;
+  --accent-hover: #2DD4BF;
+  --accent-pressed: #0D9488;
+  --accent-glow: rgba(20, 184, 166, 0.15);
+
+  /* Status Colors */
+  --status-pending: #F59E0B;
+  --status-in-transit: #3B82F6;
+  --status-out-for-delivery: #8B5CF6;
+  --status-delivered: #22C55E;
+  --status-failed: #EF4444;
+  --status-cancelled: #64748B;
+
+  /* Typography Font Families */
+  --font-heading: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Radii */
+  --radius-card: 12px;
+  --radius-control: 8px;
+  --radius-pill: 9999px;
+
+  /* Focus Ring */
+  --focus-ring-color: #2DD4BF;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* Dimensions */
+  --control-height: 44px;
+}

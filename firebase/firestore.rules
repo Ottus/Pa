@@ -1,0 +1,110 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // =========================================================================
+    // HELPER FUNCTIONS (Strict Authorization via custom claims)
+    // =========================================================================
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function role() {
+      return request.auth.token.role;
+    }
+
+    function isAdmin() {
+      return signedIn() && role() == 'admin';
+    }
+
+    function isStaff() {
+      return signedIn() && (role() == 'admin' || role() == 'dispatcher');
+    }
+
+    function isOwner(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    // Default deny all collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // =========================================================================
+    // USERS COLLECTION
+    // Owner or admin may read. Owner may update only safe fields (name, phone), NEVER role.
+    // =========================================================================
+    match /users/{uid} {
+      allow read: if isOwner(uid) || isAdmin();
+      allow create: if false; // Created via registration function/trigger
+      allow update: if isOwner(uid) 
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name', 'phone'])
+        && request.resource.data.name is string && request.resource.data.name.size() <= 100
+        && (!('phone' in request.resource.data) || (request.resource.data.phone is string && request.resource.data.phone.size() <= 20));
+      allow delete: if false;
+    }
+
+    // =========================================================================
+    // QUOTES COLLECTION
+    // Owner may read their own quote. All writes via Cloud Functions only.
+    // =========================================================================
+    match /quotes/{quoteId} {
+      allow read: if signedIn() && resource.data.customerId == request.auth.uid;
+      allow write: if false;
+    }
+
+    // =========================================================================
+    // ORDERS COLLECTION
+    // Customer may read their own orders. Staff may read all orders.
+    // All writes via Cloud Functions only (bookDelivery, cancelOrder, setPaymentStatus).
+    // =========================================================================
+    match /orders/{orderId} {
+      allow read: if (signedIn() && resource.data.customerId == request.auth.uid) || isStaff();
+      allow write: if false;
+    }
+
+    // =========================================================================
+    // SHIPMENTS & APPEND-ONLY EVENTS
+    // Customer reads their shipment; Staff reads all shipments.
+    // Admin in Phase 1 may update ONLY riderName / riderPhone directly.
+    // Status changes, delivery, and proof are updated via Cloud Functions.
+    // =========================================================================
+    match /shipments/{shipmentId} {
+      allow read: if (signedIn() && resource.data.customerId == request.auth.uid) || isStaff();
+      
+      // Direct write allowed ONLY for admin assigning rider details
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['riderName', 'riderPhone'])
+        && request.resource.data.riderName is string && request.resource.data.riderName.size() <= 80
+        && request.resource.data.riderPhone is string && request.resource.data.riderPhone.size() <= 80;
+
+      allow create, delete: if false;
+
+      // Append-only shipment events (timeline history)
+      match /events/{eventId} {
+        allow read: if (signedIn() && get(/databases/$(database)/documents/shipments/$(shipmentId)).data.customerId == request.auth.uid) || isStaff();
+        allow create, update, delete: if false; // Written only by Cloud Functions inside transactions
+      }
+    }
+
+    // =========================================================================
+    // PUBLIC TRACKING
+    // Anyone may get a single tracking record by its ID (the tracking number).
+    // Listing/browsing and client writes are strictly forbidden.
+    // =========================================================================
+    match /publicTracking/{trackingNumber} {
+      allow get: if true;
+      allow list: if false;
+      allow write: if false;
+    }
+
+    // =========================================================================
+    // SETTINGS COLLECTION
+    // Pricing numbers read by Cloud Functions and admin. Admin only write.
+    // =========================================================================
+    match /settings/{settingId} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "projects": {
+    "default": "parcelo-dev",
+    "dev": "parcelo-dev",
+    "prod": "parcelo-prod"
+  },
+  "targets": {
+    "parcelo-dev": {
+      "hosting": {
+        "customer": [
+          "parcelo-customer-dev"
+        ],
+        "ops": [
+          "parcelo-ops-dev"
+        ]
+      }
+    },
+    "parcelo-prod": {
+      "hosting": {
+        "customer": [
+          "parcelo-customer-prod"
+        ],
+        "ops": [
+          "parcelo-ops-prod"
+        ]
+      }
+    }
+  }
+}

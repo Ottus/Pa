@@ -1,0 +1,16 @@
+{
+  "name": "parcelo-functions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Parcelo Firebase Cloud Functions (Node.js callable)",
+  "main": "src/index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.1.1",
+    "firebase-functions": "^5.0.1",
+    "zod": "^3.23.8"
+  }
+}

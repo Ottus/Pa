@@ -1,0 +1,22 @@
+/**
+ * @notice Parcelo Typography Rules & Web Fonts
+ * @dev Space Grotesk (headings), IBM Plex Sans (body), IBM Plex Mono (tracking/IDs).
+ * Weights loaded: 400, 500, 600, 700 with font-display: swap and system fallbacks.
+ */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+body {
+  font-family: var(--font-body, 'IBM Plex Sans', system-ui, -apple-system, sans-serif);
+  background-color: var(--bg-primary, #0F172A);
+  color: var(--text-primary, #F1F5F9);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-heading, 'Space Grotesk', system-ui, -apple-system, sans-serif);
+}
+
+code, kbd, samp, pre, .font-mono, .tracking-number {
+  font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace);
+}

@@ -1,0 +1,14 @@
+@import '../../../packages/shared/src/theme/tokens.css';
+@import '../../../packages/shared/src/theme/fonts.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: var(--bg-primary, #0F172A);
+    color: var(--text-primary, #F1F5F9);
+    font-family: var(--font-body, 'IBM Plex Sans', system-ui, sans-serif);
+  }
+}
