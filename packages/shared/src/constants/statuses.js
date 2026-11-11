@@ -43,3 +43,4 @@ export const PACKAGE_SIZE_LABELS = Object.freeze({
   [PACKAGE_SIZE.MEDIUM]: 'Medium (5–15 kg, e.g. microwave, carton)',
   [PACKAGE_SIZE.LARGE]: 'Large (15+ kg, e.g. large crate, furniture)',
 });
+

@@ -25,3 +25,4 @@ export const ROLE_LABELS = Object.freeze({
 export function isStaffRole(role) {
   return role === ROLES.ADMIN || role === ROLES.DISPATCHER;
 }
+

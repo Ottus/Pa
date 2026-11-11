@@ -15,3 +15,4 @@ export const COLLECTIONS = Object.freeze({
 export const SETTINGS_DOCS = Object.freeze({
   PRICING: 'pricing',
 });
+

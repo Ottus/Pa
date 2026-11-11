@@ -49,3 +49,4 @@ if (useEmulator && typeof window !== 'undefined' && !window.__FIREBASE_EMULATORS
     console.warn('[Parcelo Firebase] Error connecting to emulators:', err.message);
   }
 }
+

@@ -100,3 +100,4 @@ npm run dev:ops
   - Failed: Red `#EF4444`
 - **Typography**: Space Grotesk (Headings), IBM Plex Sans (Body), IBM Plex Mono (Tracking / IDs).
 - **Radii**: 12px cards, 8px controls, pill badges.
+

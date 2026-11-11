@@ -6,3 +6,4 @@ export const APP_URLS = Object.freeze({
   CUSTOMER: import.meta?.env?.VITE_CUSTOMER_APP_URL || 'http://localhost:3000',
   OPS: import.meta?.env?.VITE_OPS_APP_URL || 'http://localhost:3001',
 });
+

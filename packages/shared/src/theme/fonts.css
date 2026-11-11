@@ -20,3 +20,4 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 code, kbd, samp, pre, .font-mono, .tracking-number {
   font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace);
 }
+

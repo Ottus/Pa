@@ -65,3 +65,4 @@ async function bootstrapAdmin(uid) {
 }
 
 bootstrapAdmin(targetUid);
+

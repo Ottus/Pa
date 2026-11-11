@@ -45,3 +45,4 @@ async function seedSettings() {
 seedSettings().catch((err) => {
   console.error('[Error] Seeding failed:', err.message);
 });
+
